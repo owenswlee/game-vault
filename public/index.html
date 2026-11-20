@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Game Vault</title>
+<meta name="description" content="Download free indie PC games.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff5a5f'/><path d='M16 7v12m-6-5 6 6 6-6M9 24h14' stroke='%23101318' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1015; --bg2:#141820; --panel:#191e28; --line:#262d3a;
+  --text:#eef1f6; --muted:#9aa4b5; --dim:#6b7586;
+  --coral:#ff5a5f; --teal:#2ad4c4; --gold:#f5b83d;
+  --radius:10px; --max:1180px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:15px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
+h1,h2,h3,.disp{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.kicker{font:700 12px/1 "Barlow Condensed",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(13,16,21,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:28px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font:800 22px/1 "Barlow Condensed",sans-serif;letter-spacing:.06em}
+.logo i{width:26px;height:26px;border-radius:6px;background:var(--coral);display:grid;place-items:center}
+.logo i svg{width:16px;height:16px}
+nav .links{display:flex;gap:22px;margin-left:auto;font:600 14px/1 "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+nav .links a:hover{color:var(--text)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 28px;border:0;cursor:pointer;
+  font:800 19px/1 "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--coral);color:#14090a;clip-path:polygon(12px 0,100% 0,calc(100% - 12px) 100%,0 100%);transition:filter .15s,transform .15s}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn svg{width:20px;height:20px}
+.btn.ghost{background:transparent;color:var(--text);box-shadow:inset 0 0 0 2px var(--line);clip-path:none;border-radius:4px}
+.btn[aria-disabled=true]{background:var(--panel);color:var(--dim);cursor:not-allowed;filter:none;transform:none}
+.meta-line{color:var(--muted);font-size:13px}
+
+/* hero */
+.hero{position:relative;min-height:560px;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,16,21,.95) 0%,rgba(13,16,21,.65) 45%,rgba(13,16,21,.1) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 40%)}
+.hero .wrap{position:relative;z-index:1;padding-bottom:64px;width:100%}
+.hero h1{font-size:clamp(56px,10vw,112px);margin:14px 0 10px;font-weight:800}
+.hero p.tag{font-size:19px;color:#d5dbe5;max-width:520px;margin-bottom:28px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.badge{display:inline-block;padding:4px 10px;border-radius:3px;font:700 12px/1.2 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;background:rgba(42,212,196,.14);color:var(--teal)}
+.badge.soon{background:rgba(245,184,61,.14);color:var(--gold)}
+
+/* sections */
+section{padding:72px 0}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:28px}
+.sec-head h2{font-size:40px;margin-top:8px}
+
+/* library */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .2s,border-color .2s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);border-color:#3a4354}
+.card .thumb{aspect-ratio:16/9;background:var(--bg2);position:relative;overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover}
+.card .thumb .ph{position:absolute;inset:0;display:grid;place-items:center;font:800 44px/1 "Barlow Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#2b3342;
+  background:repeating-linear-gradient(135deg,var(--bg2) 0 14px,#171c25 14px 28px)}
+.card .thumb .badge{position:absolute;top:12px;left:12px;backdrop-filter:blur(6px);background:rgba(13,16,21,.7)}
+.card .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-size:28px}
+.card p{color:var(--muted);font-size:14px}
+.card .foot{margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}
+.card .foot b{font:700 15px/1 "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--coral)}
+
+/* detail */
+.detail{display:none}
+body.show-detail .home{display:none}
+body.show-detail .detail{display:block}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font:600 14px/1 "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:28px 0 0}
+.back:hover{color:var(--text)}
+.d-head{display:grid;grid-template-columns:1.6fr 1fr;gap:32px;margin-top:22px}
+.d-head>*,.two>*{min-width:0}
+.viewer{border-radius:var(--radius);overflow:hidden;background:var(--bg2);aspect-ratio:16/9;cursor:zoom-in}
+.viewer img{width:100%;height:100%;object-fit:cover}
+.thumbs{display:flex;gap:10px;margin-top:10px;overflow-x:auto;padding-bottom:4px}
+.thumbs button{flex:0 0 120px;aspect-ratio:16/9;border:2px solid transparent;border-radius:6px;overflow:hidden;padding:0;cursor:pointer;opacity:.55;background:none;transition:opacity .15s}
+.thumbs button.on,.thumbs button:hover{opacity:1}
+.thumbs button.on{border-color:var(--coral)}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px;align-self:start;position:sticky;top:80px}
+.side h1{font-size:clamp(34px,3.6vw,52px);margin:10px 0 8px;overflow-wrap:anywhere}
+.side .desc{color:var(--muted);margin-bottom:20px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:13px;margin:20px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+.facts dt{color:var(--dim)}
+.side .btn{width:100%;justify-content:center}
+.side .note{font-size:12px;color:var(--dim);text-align:center;margin-top:10px}
+.features{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.feat{background:var(--bg2);border-left:3px solid var(--teal);padding:18px 20px;border-radius:0 var(--radius) var(--radius) 0}
+.feat h3{font-size:22px;margin-bottom:6px}
+.feat p{color:var(--muted);font-size:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.req{width:100%;border-collapse:collapse;font-size:14px}
+.req td{padding:11px 0;border-bottom:1px solid var(--line)}
+.req td:first-child{color:var(--dim);width:110px}
+.steps{list-style:none;padding:0;counter-reset:s;display:grid;gap:14px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:12px;font-size:14px;color:var(--muted)}
+.steps li::before{content:counter(s);width:36px;height:36px;display:grid;place-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:6px;font:800 18px/1 "Barlow Condensed",sans-serif;color:var(--coral)}
+.steps b{color:var(--text);font-weight:600}
+h2.sub{font-size:30px;margin-bottom:20px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(5,7,10,.94);display:none;align-items:center;justify-content:center;padding:16px}
+.lb.on{display:flex}
+.lb img{max-width:min(1400px,100%);max-height:90vh;border-radius:6px}
+.lb button{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:0;background:var(--panel);color:var(--text);font-size:22px;cursor:pointer}
+
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+/* about strip */
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.strip div{padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+.strip h3{font-size:22px;margin-bottom:6px}
+.strip p{color:var(--muted);font-size:14px}
+
+@media (max-width:860px){
+  .d-head,.two,.strip{grid-template-columns:1fr}
+  .side{position:static}
+  nav .links{display:none}
+  .hero{min-height:480px}
+  .hero::after{background:linear-gradient(0deg,var(--bg) 10%,rgba(13,16,21,.55) 100%)}
+  section{padding:52px 0}
+  .sec-head h2{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#/"><i><svg viewBox="0 0 24 24" fill="none" stroke="#101318" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-4 5 5 5-5M5 20h14"/></svg></i>GAME VAULT</a>
+    <div class="links"><a href="#/">Library</a><a href="#/" data-scroll="how">How to install</a></div>
+  </div>
+</nav>
+
+<main class="home">
+  <header class="hero" id="hero"></header>
+
+  <section id="library">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="kicker">Library</div><h2>All games</h2></div></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="how" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="kicker">Getting started</div><h2>How it works</h2></div></div>
+      <div class="strip">
+        <div><h3>1 · Download</h3><p>Pick a game and grab the .zip. No launcher or account needed.</p></div>
+        <div><h3>2 · Unzip</h3><p>Right-click the file, choose <b>Extract All</b>, and open the folder.</p></div>
+        <div><h3>3 · Play</h3><p>Double-click the game's .exe. If Windows SmartScreen appears, click <b>More info → Run anyway</b>.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main class="detail" id="detail"></main>
+
+<div class="lb" id="lb"><button aria-label="Close">×</button><img alt=""></div>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> Game Vault</span><span>Free indie games for Windows</span></div></footer>
+
+<script src="games.js"></script>
+<script>
+const G = window.GAMES || [];
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const dlIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-4 5 5 5-5M5 20h14"/></svg>';
+$("#yr").textContent = new Date().getFullYear();
+
+function dlButton(g, cls = "") {
+  const d = g.download || {};
+  if (!d.url) return `<a class="btn ${cls}" aria-disabled="true">Coming soon</a>`;
+  return `<a class="btn ${cls}" href="${esc(d.url)}" download="${esc(d.file)}">${dlIcon}Download${d.size ? ` <span style="opacity:.6;font-weight:600">${esc(d.size)}</span>` : ""}</a>`;
+}
+const isSoon = g => !(g.download && g.download.url) && !g.version;
+
+function renderHome() {
+  const f = G.find(g => g.hero) || G[0];
+  if (f) {
+    $("#hero").innerHTML = `
+      <div class="hero-bg" style="background-image:url('${esc(f.hero)}')"></div>
+      <div class="wrap">
+        <span class="badge">Featured · ${esc(f.status)}</span>
+        <h1>${esc(f.title)}</h1>
+        <p class="tag">${esc(f.tagline)}</p>
+        <div class="actions">
+          ${dlButton(f)}
+          <a class="btn ghost" href="#/game/${esc(f.id)}">View details</a>
+        </div>
+        <p class="meta-line" style="margin-top:16px">${esc(f.platform)}${f.version ? " · v" + esc(f.version) : ""}</p>
+      </div>`;
+  }
+  $("#grid").innerHTML = G.map(g => `
+    <a class="card" href="#/game/${esc(g.id)}">
+      <div class="thumb">
+        ${g.cover ? `<img src="${esc(g.cover)}" alt="${esc(g.title)}" loading="lazy">` : `<div class="ph">${esc(g.title)}</div>`}
+        <span class="badge ${isSoon(g) ? "soon" : ""}">${esc(g.status)}</span>
+      </div>
+      <div class="body">
+        <h3>${esc(g.title)}</h3>
+        <p>${esc(g.tagline)}</p>
+        <div class="foot"><span>${esc(g.genre)} · Windows</span><b>${g.download && g.download.url ? "Download →" : "Details →"}</b></div>
+      </div>
+    </a>`).join("");
+}
+
+function renderDetail(g) {
+  const shots = g.screenshots || [];
+  $("#detail").innerHTML = `
+    <div class="wrap">
+      <a class="back" href="#/">← Library</a>
+      <div class="d-head">
+        <div>
+          ${shots.length ? `
+            <div class="viewer" id="viewer"><img src="${esc(shots[0])}" alt="${esc(g.title)} screenshot"></div>
+            <div class="thumbs">${shots.map((s, i) => `<button class="${i ? "" : "on"}" data-src="${esc(s)}" aria-label="Screenshot ${i + 1}"><img src="${esc(s)}" alt="" loading="lazy"></button>`).join("")}</div>`
+          : `<div class="viewer" style="cursor:default"><div class="card"><div class="thumb"><div class="ph">${esc(g.title)}</div></div></div></div>`}
+        </div>
+        <aside class="side">
+          <span class="badge ${isSoon(g) ? "soon" : ""}">${esc(g.status)}</span>
+          <h1>${esc(g.title)}</h1>
+          <p class="desc">${esc(g.description)}</p>
+          ${dlButton(g)}
+          ${g.download && g.download.url ? `<p class="note">${esc(g.download.file)} · free</p>` : ""}
+          <dl class="facts">
+            <dt>Genre</dt><dd>${esc(g.genre)}</dd>
+            <dt>Platform</dt><dd>${esc(g.platform)}</dd>
+            ${g.version ? `<dt>Version</dt><dd>${esc(g.version)}</dd>` : ""}
+            ${g.updated ? `<dt>Updated</dt><dd>${esc(new Date(g.updated + "T12:00").toLocaleDateString(undefined, {year:"numeric",month:"short",day:"numeric"}))}</dd>` : ""}
+          </dl>
+        </aside>
+      </div>
+    </div>
+    ${(g.features || []).length ? `
+    <section><div class="wrap">
+      <h2 class="sub">Features</h2>
+      <div class="features">${g.features.map(([t, d]) => `<div class="feat"><h3>${esc(t)}</h3><p>${esc(d)}</p></div>`).join("")}</div>
+    </div></section>` : ""}
+    <section style="padding-top:0"><div class="wrap two">
+      ${(g.requirements || []).length ? `<div><h2 class="sub">System requirements</h2>
+        <table class="req">${g.requirements.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("")}</table></div>` : ""}
+      <div><h2 class="sub">How to install</h2>
+        <ol class="steps">
+          <li><span><b>Download</b> the .zip file above.</span></li>
+          <li><span><b>Extract it:</b> right-click the zip, choose Extract All.</span></li>
+          <li><span><b>Run</b> the .exe inside the folder.</span></li>
+          <li><span><b>SmartScreen?</b> Click More info, then Run anyway. The game isn't code-signed yet.</span></li>
+        </ol>
+      </div>
+    </div></section>`;
+
+  const viewer = $("#viewer");
+  document.querySelectorAll(".thumbs button").forEach(b => b.addEventListener("click", () => {
+    viewer.querySelector("img").src = b.dataset.src;
+    document.querySelectorAll(".thumbs button").forEach(x => x.classList.toggle("on", x === b));
+  }));
+  if (viewer) viewer.addEventListener("click", () => openLb(viewer.querySelector("img").src));
+}
+
+function openLb(src) { $("#lb img").src = src; $("#lb").classList.add("on"); }
+$("#lb").addEventListener("click", () => $("#lb").classList.remove("on"));
+addEventListener("keydown", e => { if (e.key === "Escape") $("#lb").classList.remove("on"); });
+
+function route() {
+  const m = location.hash.match(/^#\/game\/([\w-]+)/);
+  const g = m && G.find(x => x.id === m[1]);
+  if (g) {
+    document.body.classList.add("show-detail");
+    document.title = g.title + " · Game Vault";
+    renderDetail(g);
+    scrollTo({ top: 0, behavior: "instant" });
+  } else {
+    document.body.classList.remove("show-detail");
+    document.title = "Game Vault";
+  }
+}
+document.querySelectorAll("[data-scroll]").forEach(a => a.addEventListener("click", e => {
+  e.preventDefault(); location.hash = "#/"; setTimeout(() => document.getElementById(a.dataset.scroll).scrollIntoView(), 0);
+}));
+renderHome();
+addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
