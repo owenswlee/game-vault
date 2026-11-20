@@ -160,9 +160,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <div class="wrap">
       <div class="sec-head"><div><div class="kicker">Getting started</div><h2>How it works</h2></div></div>
       <div class="strip">
-        <div><h3>1 · Download</h3><p>Pick a game and grab the .zip. No launcher or account needed.</p></div>
-        <div><h3>2 · Unzip</h3><p>Right-click the file, choose <b>Extract All</b>, and open the folder.</p></div>
-        <div><h3>3 · Play</h3><p>Double-click the game's .exe. If Windows SmartScreen appears, click <b>More info → Run anyway</b>.</p></div>
+        <div><h3>1 · Download</h3><p>Pick a game and grab its installer. No launcher or account needed.</p></div>
+        <div><h3>2 · Install</h3><p>Open the downloaded file. If Windows SmartScreen appears, click <b>More info → Run anyway</b>.</p></div>
+        <div><h3>3 · Play</h3><p>Press the <b>Windows key</b>, type the game's name, and hit Enter. It's in your Start menu like any other app.</p></div>
       </div>
     </div>
   </section>
@@ -236,7 +236,7 @@ function renderDetail(g) {
           <h1>${esc(g.title)}</h1>
           <p class="desc">${esc(g.description)}</p>
           ${dlButton(g)}
-          ${g.download && g.download.url ? `<p class="note">${esc(g.download.file)} · free</p>` : ""}
+          ${g.download && g.download.url ? `<p class="note">${esc(g.download.file)} · Windows installer · free</p>` : ""}
           <dl class="facts">
             <dt>Genre</dt><dd>${esc(g.genre)}</dd>
             <dt>Platform</dt><dd>${esc(g.platform)}</dd>
@@ -256,10 +256,10 @@ function renderDetail(g) {
         <table class="req">${g.requirements.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("")}</table></div>` : ""}
       <div><h2 class="sub">How to install</h2>
         <ol class="steps">
-          <li><span><b>Download</b> the .zip file above.</span></li>
-          <li><span><b>Extract it:</b> right-click the zip, choose Extract All.</span></li>
-          <li><span><b>Run</b> the .exe inside the folder.</span></li>
-          <li><span><b>SmartScreen?</b> Click More info, then Run anyway. The game isn't code-signed yet.</span></li>
+          <li><span><b>Download</b> the installer above.</span></li>
+          <li><span><b>Open it</b> and click Install. No admin rights needed.</span></li>
+          <li><span><b>SmartScreen?</b> Click More info, then Run anyway. The installer isn't code-signed yet.</span></li>
+          <li><span><b>Play:</b> press the Windows key, type <b>${esc(g.title)}</b>, and hit Enter. Uninstall any time from Settings → Apps.</span></li>
         </ol>
       </div>
     </div></section>`;

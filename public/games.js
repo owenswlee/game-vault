@@ -1,5 +1,5 @@
 // Edit this file to add games or change download links.
-// download.url: a direct link to the .zip (Cloudflare R2, GitHub Releases, etc.).
+// download.url: a direct link to the installer .exe (hosted on GitHub Releases).
 // Leave url empty ("") and the button shows "Coming soon".
 window.GAMES = [
   {
@@ -40,9 +40,9 @@ window.GAMES = [
       ["Storage", "400 MB free space"]
     ],
     download: {
-      url: "https://github.com/owenswlee/game-vault/releases/latest/download/UltimateShooter-win64.zip",
-      file: "UltimateShooter-win64.zip",
-      size: "120 MB"
+      url: "https://github.com/owenswlee/game-vault/releases/latest/download/UltimateShooterSetup.exe",
+      file: "UltimateShooterSetup.exe",
+      size: "87 MB"
     }
   },
   {
