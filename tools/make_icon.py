@@ -37,12 +37,13 @@ def draw(size_hint):
     return img
 
 
-def main(out_ico, out_png):
+def main(out_ico, out_png, png_size=512):
     sizes = [16, 24, 32, 48, 64, 128, 256]
     frames = [draw(s).resize((s, s), Image.LANCZOS) for s in sizes]
     frames[-1].save(out_ico, format="ICO", sizes=[(s, s) for s in sizes], append_images=frames[:-1])
-    draw(512).resize((512, 512), Image.LANCZOS).save(out_png)
+    draw(png_size).resize((png_size, png_size), Image.LANCZOS).save(out_png)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    # make_icon.py <out.ico> <out.png> [png size, default 512; use 1024 for the Unity app icon]
+    main(sys.argv[1], sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 512)

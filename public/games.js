@@ -8,24 +8,25 @@ window.GAMES = [
     tagline: "Fast tactical duels. Sharp gunplay. One more round.",
     genre: "Arena FPS",
     status: "Early access",
-    version: "0.6",
+    version: "0.7",
     updated: "2026-11-20",
     platform: "Windows 10/11 · 64-bit",
     cover: "img/us-menu.jpg",
     hero: "img/us-action.jpg",
     accent: "#ff5a5f",
     description:
-      "A competitive arena shooter built for quick matches against bots. Pick an agent, build your loadout, and fight across four city maps in Duel, Skirmish, Squad, Gun Game and Hardpoint.",
+      "A competitive arena shooter built for quick matches against bots. Pick an agent, build your loadout, and fight across five maps in Duel, Skirmish, Squad, Gun Game and Hardpoint.",
     features: [
       ["60+ weapons", "Rifles, railguns, bows, flamethrowers and miniguns, each with their own mechanics."],
       ["5 game modes", "Duel 1v1, Skirmish 2v2, Squad 3v3, Gun Game, Hardpoint, plus an aim trainer."],
-      ["4 maps", "Crossroads, Dockyard, Overpass and Rooftops with jump pads, mantling and a grappling hook."],
+      ["5 maps", "Crossroads, Dockyard, Overpass, Rooftops and the new Foundry, with jump pads, mantling and a grappling hook."],
       ["Agents & progression", "8 agents with perks, a 30-tier battlepass, daily challenges and weapon mastery."],
       ["Shop & skins", "44 weapon wraps, optics, lasers, muzzles and magazines to unlock."],
       ["Full settings", "Rebindable keys, crosshair editor, graphics and audio options."]
     ],
     screenshots: [
       "img/us-action.jpg",
+      "img/us-foundry.jpg",
       "img/us-fight.jpg",
       "img/us-menu.jpg",
       "img/us-loadout.jpg",
