@@ -3,7 +3,7 @@
 ; Installs per-user (no admin prompt) and adds Start menu + optional desktop shortcuts, so the game shows up in Windows search.
 
 #define AppName "Ultimate Shooter"
-#define AppVersion "0.7"
+#define AppVersion "0.8"
 #define AppExe "UltimateShooter.exe"
 #ifndef SourceDir
   #define SourceDir "..\..\release\stage\UltimateShooter"

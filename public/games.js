@@ -8,14 +8,14 @@ window.GAMES = [
     tagline: "Fast tactical duels. Sharp gunplay. One more round.",
     genre: "Arena FPS",
     status: "Early access",
-    version: "0.7",
-    updated: "2026-11-20",
+    version: "0.8",
+    updated: "2026-11-23",
     platform: "Windows 10/11 · 64-bit",
     cover: "img/us-menu.jpg",
     hero: "img/us-action.jpg",
     accent: "#ff5a5f",
     description:
-      "A competitive arena shooter built for quick matches against bots. Pick an agent, build your loadout, and fight across five maps in Duel, Skirmish, Squad, Gun Game and Hardpoint.",
+      "A competitive arena shooter built for quick matches. Pick an agent, build your loadout, and fight across five maps in Duel, Skirmish, Squad, Gun Game and Hardpoint.",
     features: [
       ["60+ weapons", "Rifles, railguns, bows, flamethrowers and miniguns, each with their own mechanics."],
       ["5 game modes", "Duel 1v1, Skirmish 2v2, Squad 3v3, Gun Game, Hardpoint, plus an aim trainer."],
