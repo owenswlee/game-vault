@@ -1,5 +1,5 @@
 // Edit this file to add games or change download links.
-// download.url: a direct link to the installer .exe (hosted on GitHub Releases).
+// download.url: the installer path on this site (/download/<file>, served by src/worker.js).
 // Leave url empty ("") and the button shows "Coming soon".
 window.GAMES = [
   {
@@ -41,7 +41,7 @@ window.GAMES = [
       ["Storage", "400 MB free space"]
     ],
     download: {
-      url: "https://github.com/owenswlee/game-vault/releases/latest/download/UltimateShooterSetup.exe",
+      url: "/download/UltimateShooterSetup.exe",
       file: "UltimateShooterSetup.exe",
       size: "87 MB"
     }
