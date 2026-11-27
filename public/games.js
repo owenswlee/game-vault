@@ -1,6 +1,7 @@
 // Edit this file to add games or change download links.
 // download.url: the installer path on this site (/download/<file>, served by src/worker.js).
 // Leave url empty ("") and the button shows "Coming soon".
+// play.url: for browser games, the page that runs the game (shows a "Play in browser" button instead).
 window.GAMES = [
   {
     id: "ultimate-shooter",
@@ -45,6 +46,39 @@ window.GAMES = [
       file: "UltimateShooterSetup.exe",
       size: "87 MB"
     }
+  },
+  {
+    id: "snoopy",
+    title: "Snoopy",
+    tagline: "Fly the doghouse, catch the treats, throw the party.",
+    genre: "Arcade",
+    status: "Play now",
+    version: "1.0",
+    updated: "2026-11-26",
+    platform: "Any browser · phone or computer",
+    cover: "img/snoopy-cover.jpg",
+    hero: "img/snoopy-hero.jpg",
+    accent: "#e23b2e",
+    description:
+      "A three-level birthday game that runs right in your browser. Fly Snoopy's doghouse through the sky, catch falling treats in his supper dish, and hunt the yard for party supplies. Beat all three and you get a party, a prize wheel and a prize ticket.",
+    features: [
+      ["Up in the Sky", "Steer the flying doghouse to collect 12 hearts and dodge the grumpy storm clouds."],
+      ["Supper Time", "Catch 15 falling treats in Snoopy's supper dish. Skip the rain clouds."],
+      ["Party Hunt", "Find five party things around the yard and bring them to the doghouse."],
+      ["Birthday party", "Confetti, cake, balloons and a Happy Birthday song when you win."],
+      ["Prize wheel", "Spin for your prize at the end. Good luck."],
+      ["Phone or computer", "Drag with a finger, or use the mouse or arrow keys. Nothing to install."]
+    ],
+    screenshots: [
+      "img/snoopy-l1.jpg",
+      "img/snoopy-l2.jpg",
+      "img/snoopy-l3.jpg",
+      "img/snoopy-party.jpg",
+      "img/snoopy-wheel.jpg"
+    ],
+    requirements: [],
+    play: { url: "/snoopy/" },
+    download: { url: "", file: "", size: "" }
   },
   {
     id: "duel-arena",

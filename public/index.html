@@ -228,7 +228,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
     <div class="wrap">
       <div class="sec-head reveal">
         <div><div class="kicker">The library</div><h2>Every file, unlocked.</h2></div>
-        <p>Free Windows games, made in-house. No launcher, no account, no ads. Download and play.</p>
+        <p>Free games, made in-house. No launcher, no account, no ads. Download for Windows, or play right in your browser.</p>
       </div>
       <div class="grid" id="grid"></div>
     </div>
@@ -250,7 +250,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
 
 <div class="lb" id="lb"><button class="x" aria-label="Close">×</button><img alt=""></div>
 
-<footer><div class="wrap"><span>© <span id="yr"></span> Secret Games</span><span class="mono">Free indie games for Windows</span></div></footer>
+<footer><div class="wrap"><span>© <span id="yr"></span> Secret Games</span><span class="mono">Free indie games</span></div></footer>
 
 <script src="games.js"></script>
 <script>
@@ -263,10 +263,14 @@ const arrow = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
 $("#yr").textContent = new Date().getFullYear();
 
 const hasDl = g => !!(g.download && g.download.url);
-const statusChip = g => `<span class="chip ${hasDl(g) ? "live" : "soon"}">${esc(g.status)}</span>`;
+const hasPlay = g => !!(g.play && g.play.url);
+const isLive = g => hasDl(g) || hasPlay(g);
+const playIcon = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+const statusChip = g => `<span class="chip ${isLive(g) ? "live" : "soon"}">${esc(g.status)}</span>`;
 const fileNo = i => "FILE " + String(i + 1).padStart(3, "0");
 
 function dlButton(g, cls = "") {
+  if (hasPlay(g)) return `<a class="btn ${cls}" href="${esc(g.play.url)}">${playIcon}Play in browser</a>`;
   const d = g.download || {};
   if (!d.url) return `<a class="btn ${cls}" aria-disabled="true">Coming soon</a>`;
   return `<a class="btn ${cls}" href="${esc(d.url)}" download="${esc(d.file)}">${dlIcon}Download free${d.size ? ` <span class="size">${esc(d.size)}</span>` : ""}</a>`;
@@ -289,7 +293,7 @@ function renderHome() {
           <div class="actions">${dlButton(f)}<a class="btn ghost" href="#/game/${esc(f.id)}">View file ${arrow}</a></div>
           <div class="meta">
             ${f.version ? `<span class="chip">v${esc(f.version)}</span>` : ""}
-            <span class="chip">${esc(f.genre)}</span><span class="chip">Windows 10/11</span><span class="chip">Free</span>
+            <span class="chip">${esc(f.genre)}</span><span class="chip">${hasPlay(f) ? "Plays in browser" : "Windows 10/11"}</span><span class="chip">Free</span>
           </div>
         </div>
         <div class="peek">${shots.map(s => `<button data-src="${esc(s)}" aria-label="View screenshot"><img src="${esc(s)}" alt="" loading="lazy"></button>`).join("")}</div>
@@ -298,7 +302,7 @@ function renderHome() {
   }
 
   const words = [];
-  G.filter(hasDl).forEach(g => (g.features || []).forEach(([t]) => words.push(`${g.title} · ${t}`)));
+  G.filter(isLive).forEach(g => (g.features || []).forEach(([t]) => words.push(`${g.title} · ${t}`)));
   if (!words.length) words.push("Free indie games for Windows");
   const row = words.map(w => `<span>${esc(w)}</span>`).join("");
   $("#ticker").innerHTML = row + row;
@@ -312,7 +316,7 @@ function renderHome() {
       <div class="body">
         <h3>${esc(g.title)}</h3>
         <p>${esc(g.tagline)}</p>
-        <div class="foot"><span>${esc(g.genre)}${g.version ? " · v" + esc(g.version) : ""}</span><b>${hasDl(g) ? "Download" : "Details"} ${arrow}</b></div>
+        <div class="foot"><span>${esc(g.genre)}${g.version ? " · v" + esc(g.version) : ""}</span><b>${hasPlay(g) ? "Play" : hasDl(g) ? "Download" : "Details"} ${arrow}</b></div>
       </div>
     </a>`).join("");
 }
@@ -337,7 +341,8 @@ function renderDetail(g) {
           <p class="tagline">${esc(g.tagline)}</p>
           <p class="desc">${esc(g.description)}</p>
           ${dlButton(g)}
-          ${hasDl(g) ? `<p class="note">${esc(g.download.file)} · Windows installer · free</p>` : ""}
+          ${hasPlay(g) ? `<p class="note">Runs in your browser · phone or computer · free</p>`
+            : hasDl(g) ? `<p class="note">${esc(g.download.file)} · Windows installer · free</p>` : ""}
           <dl class="facts">
             <dt>Genre</dt><dd>${esc(g.genre)}</dd>
             <dt>Platform</dt><dd>${esc(g.platform)}</dd>
@@ -355,14 +360,20 @@ function renderDetail(g) {
     <section style="padding-top:0"><div class="wrap two">
       ${(g.requirements || []).length ? `<div class="box"><div class="kicker">Specs</div><h2 class="sub">System requirements</h2>
         <table class="req">${g.requirements.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("")}</table></div>` : ""}
-      <div class="box"><div class="kicker">Setup</div><h2 class="sub">How to install</h2>
+      ${hasPlay(g) ? `<div class="box"><div class="kicker">Setup</div><h2 class="sub">How to play</h2>
+        <ol class="steps">
+          <li><span><b>Click Play in browser</b> above. Nothing to download or install.</span></li>
+          <li><span><b>On a phone,</b> drag with your finger. <b>On a computer,</b> use the mouse or the arrow keys.</span></li>
+          <li><span><b>Sound:</b> turn it on or off with the button in the top corner of the game.</span></li>
+        </ol>
+      </div>` : `<div class="box"><div class="kicker">Setup</div><h2 class="sub">How to install</h2>
         <ol class="steps">
           <li><span><b>Download</b> the installer above.</span></li>
           <li><span><b>Open it</b> and click Install. No admin rights needed.</span></li>
           <li><span><b>SmartScreen?</b> Click More info, then Run anyway. The installer isn't code-signed yet.</span></li>
           <li><span><b>Play:</b> press the Windows key, type <b>${esc(g.title)}</b>, and hit Enter. Uninstall any time from Settings → Apps.</span></li>
         </ol>
-      </div>
+      </div>`}
     </div></section>`;
 
   const viewer = $("#viewer");
